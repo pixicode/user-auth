@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthProps from '../models/AuthStatus copy';
+import AuthProps from '../models/AuthProps';
 import AuthStatus from '../models/AuthStatus';
 import { LockFill, Envelope } from 'react-bootstrap-icons';
 
@@ -26,7 +26,10 @@ const Landing: React.SFC<AuthProps> = (props) => {
     </div>
 
     const forgotPasswordElement = <div className="text-left">
-        <button className="btn btn-link">Forgot Password?</button>
+        <button className="btn btn-link"
+            onClick={() => props.setAuthState({ ...props.authState, status: AuthStatus.FORGOT_PASSWORD })}
+        >Forgot Password?
+        </button>
     </div>
 
     const submitButton = <div>

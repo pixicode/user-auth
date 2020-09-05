@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthProps from '../models/AuthStatus copy';
+import AuthProps from '../models/AuthProps';
 
 const Register: React.SFC<AuthProps> = (props) => {
 

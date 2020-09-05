@@ -1,7 +1,7 @@
 import React from 'react';
 import { newAuthState } from './models/AuthState';
 import UserAuthComponentFactory from './UserAuthComponentFactory';
-import AuthProps from './models/AuthStatus copy';
+import AuthProps from './models/AuthProps';
 
 interface UserAuthProps {
 

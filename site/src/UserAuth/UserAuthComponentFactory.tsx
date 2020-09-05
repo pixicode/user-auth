@@ -3,7 +3,8 @@ import AuthStatus from "./models/AuthStatus";
 import Landing from "./components/Landing";
 import React from 'react';
 import Register from "./components/Register";
-import AuthProps from "./models/AuthStatus copy";
+import AuthProps from "./models/AuthProps";
+import ForgotPassword from "./components/ForgotPassword";
 
 
 class UserAuthComponentFactory {
@@ -11,10 +12,13 @@ class UserAuthComponentFactory {
     public static componentForState = (authState: AuthState, authProps: AuthProps) => {
         switch (authState.status) {
             case AuthStatus.UNAUTHENTICATED:
-                return <Landing {...authProps}/>;
+                return <Landing {...authProps} />;
 
             case AuthStatus.REGISTERING:
-                return <Register {...authProps}/>;
+                return <Register {...authProps} />;
+
+            case AuthStatus.FORGOT_PASSWORD:
+                return <ForgotPassword {...authProps} />;
         }
     }
 }
