@@ -1,5 +1,8 @@
 import React from 'react';
 import AuthProps from '../models/AuthProps';
+import AuthFlow from '../models/AuthFlow';
+import AuthTextField from './AuthTextField';
+import AuthTextButton from './AuthTextButton';
 
 const Register: React.SFC<AuthProps> = (props) => {
 
@@ -11,29 +14,29 @@ const Register: React.SFC<AuthProps> = (props) => {
 
     const inputElement = <div>
         <ul className="list-group">
-            <input type="text" className="list-group-item" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-            <input type="text" className="list-group-item" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" />
+            <AuthTextField />
+            <AuthTextField />
         </ul>
     </div>
 
-    const forgotPasswordElement = <div className="text-left">
-        <button className="btn btn-link">Forgot Password?</button>
-    </div>
-
     const submitButton = <div>
-        <input className="btn btn-lg btn-primary btn-block" type="submit" value="Submit"></input>
+        <input className="btn btn-lg btn-primary btn-block" type="submit" value="Submit"
+            onClick={() => props.setAuthState({ ...props.authState, flow: AuthFlow.VERIFY_ACCOUNT })}></input>
     </div>
 
-    const registerButton = <div>
-        <button className="btn btn-link">Create an account</button>
+    const goBackToLanding = () => props.setAuthState({ ...props.authState, flow: AuthFlow.LANDING });
+    const backButton = <AuthTextButton label="Back" onClick={goBackToLanding} />;
+
+    const errorElement = <div className="alert alert-danger" role="alert">
+        A simple primary alert—check it out!
     </div>
 
     return <>
         Register new account!
+        {withGap(errorElement)}
         {withGap(inputElement)}
-        {forgotPasswordElement}
         {withGap(submitButton)}
-        {registerButton}
+        {backButton}
     </>;
 }
 

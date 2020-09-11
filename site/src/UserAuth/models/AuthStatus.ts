@@ -1,7 +1,6 @@
 enum AuthStatus {
     UNAUTHENTICATED,
-    REGISTERING,
-    FORGOT_PASSWORD
+    AUTHENTICATED
 }
 
 export default AuthStatus;

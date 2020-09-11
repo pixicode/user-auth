@@ -2,6 +2,8 @@ import React from 'react';
 import AuthProps from '../models/AuthProps';
 import AuthStatus from '../models/AuthStatus';
 import { LockFill, Envelope } from 'react-bootstrap-icons';
+import AuthFlow from '../models/AuthFlow';
+import AuthTextButton from './AuthTextButton';
 
 const Landing: React.SFC<AuthProps> = (props) => {
 
@@ -25,26 +27,25 @@ const Landing: React.SFC<AuthProps> = (props) => {
         </ul>
     </div>
 
-    const forgotPasswordElement = <div className="text-left">
-        <button className="btn btn-link"
-            onClick={() => props.setAuthState({ ...props.authState, status: AuthStatus.FORGOT_PASSWORD })}
-        >Forgot Password?
-        </button>
-    </div>
+    const goToForgotPassword = () => props.setAuthState({ ...props.authState, flow: AuthFlow.FORGOT_PASSWORD });
+    const forgotPasswordButton = <AuthTextButton label="Forgot Password?" onClick={goToForgotPassword} />;
+    const forgotPasswordElement = <div className="text-left">{forgotPasswordButton}</div>;
 
+    const signIn = () => props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN, status: AuthStatus.AUTHENTICATED });
     const submitButton = <div>
-        <input className="btn btn-lg btn-primary btn-block" type="submit" value="Submit"></input>
+        <input className="btn btn-lg btn-primary btn-block" type="submit" value="Submit" onClick={signIn}></input>
     </div>
 
-    const registerButton = <div>
-        <button className="btn btn-link"
-            onClick={() => props.setAuthState({ ...props.authState, status: AuthStatus.REGISTERING })}
-        >Create an account
-        </button>
+    const goToRegister = () => props.setAuthState({ ...props.authState, flow: AuthFlow.REGISTERING });
+    const registerButton = <AuthTextButton label="Create an account" onClick={goToRegister} />;
+
+    const errorElement = <div className="alert alert-danger" role="alert">
+        A simple primary alert—check it out!
     </div>
 
     return <>
         Please sign in to continue.
+        {withGap(errorElement)}
         {withGap(inputElement)}
         {forgotPasswordElement}
         {withGap(submitButton)}

@@ -7,7 +7,7 @@ import UserAuth from './UserAuth/UserAuth';
 
 function App() {
   return (
-    <div className="App container" style={{padding: "3rem"}}>
+    <div className="App container">
       <UserAuth />
     </div>
   );
