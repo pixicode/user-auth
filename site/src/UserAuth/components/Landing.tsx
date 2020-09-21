@@ -4,8 +4,11 @@ import AuthStatus from '../models/AuthStatus';
 import { LockFill, Envelope } from 'react-bootstrap-icons';
 import AuthFlow from '../models/AuthFlow';
 import AuthTextButton from './AuthTextButton';
+import SubmitButton from './SubmitButton';
 
 const Landing: React.SFC<AuthProps> = (props) => {
+
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const withGap = (element: JSX.Element) => {
         return <div style={{ "marginTop": "1.2rem" }}>
@@ -31,10 +34,9 @@ const Landing: React.SFC<AuthProps> = (props) => {
     const forgotPasswordButton = <AuthTextButton label="Forgot Password?" onClick={goToForgotPassword} />;
     const forgotPasswordElement = <div className="text-left">{forgotPasswordButton}</div>;
 
-    const signIn = () => props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN, status: AuthStatus.AUTHENTICATED });
-    const submitButton = <div>
-        <input className="btn btn-lg btn-primary btn-block" type="submit" value="Submit" onClick={signIn}></input>
-    </div>
+    // const signIn = () => props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN, status: AuthStatus.AUTHENTICATED });
+    const signIn = () => {setIsLoading(true)}
+    const submitButton = <SubmitButton onClick={signIn} isLoading={isLoading}/>;
 
     const goToRegister = () => props.setAuthState({ ...props.authState, flow: AuthFlow.REGISTERING });
     const registerButton = <AuthTextButton label="Create an account" onClick={goToRegister} />;
