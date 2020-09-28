@@ -1,41 +1,34 @@
 import React from 'react';
-import AuthProps from '../models/AuthProps';
-import AuthStatus from '../models/AuthStatus';
-import { LockFill, Envelope } from 'react-bootstrap-icons';
-import AuthFlow from '../models/AuthFlow';
-import AuthTextButton from './AuthTextButton';
-import SubmitButton from './SubmitButton';
+import AuthProps from '../../models/AuthProps';
+import AuthFlow from '../../models/AuthFlow';
+import AuthTextButton from '../AuthTextButton';
+import SubmitButton from '../SubmitButton';
+import AuthInputField, { AuthInputFieldType } from '../AuthInputField';
+import withGap from '../utils/withGap';
+import createInputList from '../utils/createInputList';
+import AuthApi from '../../api/AuthApi';
 
 const Landing: React.SFC<AuthProps> = (props) => {
 
     const [isLoading, setIsLoading] = React.useState(false);
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
-    const withGap = (element: JSX.Element) => {
-        return <div style={{ "marginTop": "1.2rem" }}>
-            {element}
-        </div>
-    }
-
-    const inputElement = <div>
-        <ul className="list-group">
-            <li className="list-group-item d-flex">
-                <Envelope size={"1.2rem"} color="#888" style={{ marginTop: "auto", marginBottom: "auto", marginRight: "1rem" }} />
-                <input style={{ border: "None", width: "100%" }} type="text" placeholder="Username" />
-            </li>
-
-            <li className="list-group-item d-flex">
-                <LockFill size={"1.2rem"} color="#888" style={{ marginTop: "auto", marginBottom: "auto", marginRight: "1rem" }} />
-                <input style={{ border: "None", width: "100%" }} type="password" placeholder="Password" />
-            </li>
-        </ul>
-    </div>
+    const inputElement = createInputList([
+        <AuthInputField value={email} setValue={setEmail} fieldType={AuthInputFieldType.EMAIL}/>,
+        <AuthInputField value={password} setValue={setPassword} fieldType={AuthInputFieldType.PASSWORD}/>
+    ]);
 
     const goToForgotPassword = () => props.setAuthState({ ...props.authState, flow: AuthFlow.FORGOT_PASSWORD });
     const forgotPasswordButton = <AuthTextButton label="Forgot Password?" onClick={goToForgotPassword} />;
     const forgotPasswordElement = <div className="text-left">{forgotPasswordButton}</div>;
 
     // const signIn = () => props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN, status: AuthStatus.AUTHENTICATED });
-    const signIn = () => {setIsLoading(true)}
+    const signIn = () => { 
+        setIsLoading(true); 
+        AuthApi.signIn(email, password); 
+    }
+    
     const submitButton = <SubmitButton onClick={signIn} isLoading={isLoading}/>;
 
     const goToRegister = () => props.setAuthState({ ...props.authState, flow: AuthFlow.REGISTERING });

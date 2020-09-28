@@ -1,14 +1,13 @@
 import AuthState from "./models/AuthState";
-import AuthStatus from "./models/AuthStatus";
-import Landing from "./components/Landing";
+import Landing from "./components/flow/Landing";
 import React from 'react';
-import Register from "./components/Register";
+import Register from "./components/flow/Register";
 import AuthProps from "./models/AuthProps";
-import ForgotPassword from "./components/ForgotPassword";
+import ForgotPassword from "./components/flow/ForgotPassword";
 import AuthFlow from "./models/AuthFlow";
-import PasswordResetSent from "./components/PasswordResetSent";
-import VerifyAccount from "./components/VerifyAccount";
-import Profile from "./components/Profile";
+import PasswordResetSent from "./components/flow/PasswordResetSent";
+import VerifyAccount from "./components/flow/VerifyAccount";
+import Profile from "./components/flow/Profile";
 
 
 class UserAuthComponentFactory {

@@ -1,4 +1,3 @@
-import UserAuth from "../UserAuth";
 import AuthStatus from "./AuthStatus";
 import AuthFlow from "./AuthFlow";
 interface AuthState {

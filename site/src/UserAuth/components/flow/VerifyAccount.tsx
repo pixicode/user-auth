@@ -1,8 +1,7 @@
 import React from 'react';
-import AuthProps from '../models/AuthProps';
-import { Envelope } from 'react-bootstrap-icons';
-import AuthFlow from '../models/AuthFlow';
-import AuthTextButton from './AuthTextButton';
+import AuthProps from '../../models/AuthProps';
+import AuthFlow from '../../models/AuthFlow';
+import AuthTextButton from '../AuthTextButton';
 
 const VerifyAccount: React.SFC<AuthProps> = (props) => {
 

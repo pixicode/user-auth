@@ -3,8 +3,8 @@
 
 class AuthApi {
 
-    public static signIn = () => {
-        console.log("Signing In");
+    public static signIn = (email: string, password: string) => {
+        console.log(`Signing In: ${email} : ${password}`);
     }
 
 }

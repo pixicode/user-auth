@@ -2,6 +2,7 @@ import React from 'react';
 
 
 interface SubmitButtonProps {
+    label?: string;
     onClick(): void;
     isLoading: boolean;
 }
@@ -9,6 +10,7 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 
+    const label: string = props.label ? props.label : "Submit";
     const fixedHeight = "calc(100% - 1rem)";  // Full button height and respect padding.
     const spinner = <div style={{left: 0, position: "absolute", marginLeft: "1rem", display: "flex", height: fixedHeight}}>
         <div style={{ width: "1rem", height: "1rem", margin: "auto" }}>
@@ -27,7 +29,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
             disabled={props.isLoading}
             onClick={props.onClick}>
                 {displayedSpinner}
-                Submit
+                {label}
             </button>
     </div>;
 }
