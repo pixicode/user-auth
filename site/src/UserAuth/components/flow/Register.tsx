@@ -6,8 +6,9 @@ import withGap from '../utils/withGap';
 import AuthInputField, { AuthInputFieldType } from '../AuthInputField';
 import SubmitButton from '../SubmitButton';
 import createInputList from '../utils/createInputList';
+import AuthApi from '../../api/AuthApi';
 
-const Register: React.SFC<AuthProps> = (props) => {
+const Register: React.FunctionComponent<AuthProps> = (props) => {
 
     const [isLoading, setIsLoading] = React.useState(false);
     const [email, setEmail] = React.useState("");
@@ -18,12 +19,23 @@ const Register: React.SFC<AuthProps> = (props) => {
         <AuthInputField value={password} setValue={setPassword} fieldType={AuthInputFieldType.PASSWORD}/>
     ]);
 
-    const onSubmit = () => props.setAuthState({ ...props.authState, flow: AuthFlow.VERIFY_ACCOUNT });
-    const submitButton = <SubmitButton onClick={onSubmit} isLoading={isLoading}/>;
+    const register = () => { 
+        setIsLoading(true); 
+        AuthApi.register(email, password)
+        .then(x => {
+            console.log(`Register done: ${x}`);
+            setIsLoading(false);
+            props.setAuthState({ ...props.authState, flow: AuthFlow.VERIFY_ACCOUNT });
+        })
+        .catch(x => {
+            console.log("Failed to resolve registration", x);
+            setIsLoading(false);
+        }); 
+    }
 
+    const submitButton = <SubmitButton onClick={register} isLoading={isLoading}/>;
     const goBackToLanding = () => props.setAuthState({ ...props.authState, flow: AuthFlow.LANDING });
     const backButton = <AuthTextButton label="Back" onClick={goBackToLanding} />;
-
     const errorElement = <div className="alert alert-danger" role="alert">
         A simple primary alert—check it out!
     </div>

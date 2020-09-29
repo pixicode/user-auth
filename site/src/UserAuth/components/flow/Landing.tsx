@@ -26,7 +26,16 @@ const Landing: React.SFC<AuthProps> = (props) => {
     // const signIn = () => props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN, status: AuthStatus.AUTHENTICATED });
     const signIn = () => { 
         setIsLoading(true); 
-        AuthApi.signIn(email, password); 
+        AuthApi.signIn(email, password)
+        .then(x => {
+            console.log(`Login complete: ${x}`);
+            setIsLoading(false);
+            props.setAuthState({ ...props.authState, flow: AuthFlow.SIGNED_IN });
+        })
+        .catch(x => {
+            console.log("Failed to resolve signIn", x);
+            setIsLoading(false);
+        }); 
     }
     
     const submitButton = <SubmitButton onClick={signIn} isLoading={isLoading}/>;
