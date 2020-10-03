@@ -16,7 +16,10 @@ const Profile: React.SFC<AuthProps> = (props) => {
         .then(x => {
             console.log(`Signout done: ${x}`);
             setIsLoading(false);
-            props.setAuthState({ ...props.authState, flow: AuthFlow.LANDING, status: AuthStatus.UNAUTHENTICATED });
+            props.setAuthState({ ...props.authState, 
+                flow: AuthFlow.LANDING, 
+                status: AuthStatus.UNAUTHENTICATED, 
+                user: undefined });
         })
         .catch(x => {
             console.log("Failed to resolve registration", x);
@@ -27,7 +30,7 @@ const Profile: React.SFC<AuthProps> = (props) => {
     const submitButton = <SubmitButton label="Sign Out" onClick={onSignOutSubmit} isLoading={isLoading}/>;
 
     return <>
-        <div>You are signed in!</div>
+        <div>You are signed in as: {props.authState.user?.email}</div>
         {withGap(submitButton)}
     </>;
 }
