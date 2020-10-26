@@ -6,6 +6,7 @@ interface AuthResponse {
     user?: AuthUser;
     error?: AuthError;
     errorDetails?: string;
+    token?: string;
 }
 
 export default AuthResponse;

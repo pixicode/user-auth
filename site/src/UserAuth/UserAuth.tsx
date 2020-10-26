@@ -2,6 +2,7 @@ import React from 'react';
 import { newAuthState } from './models/AuthState';
 import UserAuthComponentFactory from './UserAuthComponentFactory';
 import AuthProps from './models/AuthProps';
+import AuthApi from './api/AuthApi';
 
 interface UserAuthProps {
 
@@ -10,6 +11,11 @@ interface UserAuthProps {
 const UserAuth: React.SFC<UserAuthProps> = (props) => {
 
     const [authState, setAuthState] = React.useState(newAuthState());
+
+    AuthApi.testApi()
+    .then(console.log)
+    .catch(console.log)
+    .finally(() => console.log("Test call completed"));
 
     const authProps: AuthProps = {
         authState: authState,

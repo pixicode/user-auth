@@ -4,6 +4,45 @@ import AuthResponse from "./AuthResponse";
 
 class AuthApi {
 
+    public static ENDPOINT: string = "https://m5xaeftri8.execute-api.us-east-1.amazonaws.com/prod/auth";
+
+    private static invokePostApi = (endpoint: string, payload: object, onResponseReceived:(x: any) => void, onError:(x: any) => void) => {
+        console.log("Getting from API: " + endpoint);
+        const request = AuthApi.createPostRequest(payload);
+        fetch(endpoint, request)
+            .then(rawResponse => rawResponse.json())
+            .then(response => onResponseReceived(response))
+            .catch(error => onError(error));
+    }
+
+    private static createPostRequest = (payload: object) => {
+        const request = {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        };
+        return request;
+    }
+    
+
+    public static testApi = (): Promise<AuthResponse> => {
+        console.log(`Testing the endpoint: ${AuthApi.ENDPOINT}`);
+
+        var promise = new Promise<AuthResponse>((resolve, reject) => {
+            const response: AuthResponse = {
+                success: true,
+                token: "null"
+            }
+            AuthApi.invokePostApi(AuthApi.ENDPOINT, {}, (x) => { console.log(x); response.token = x.token; resolve(response);}, reject);
+        });
+
+        
+        return promise;
+    }
+
     public static signIn = (email: string, password: string): Promise<AuthResponse> => {
         console.log(`Signing In: ${email} : ${password}`);
         
