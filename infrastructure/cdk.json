@@ -1,5 +1,5 @@
 {
-  "app": "(cd lambda-ts && npm run-script build) && npx ts-node bin/infrastructure.ts",
+  "app": "npx ts-node bin/infrastructure.ts",
   "context": {
     "@aws-cdk/core:enableStackNameDuplicates": "true",
     "aws-cdk:enableDiffNoFail": "true",
