@@ -1,0 +1,24 @@
+{
+  "name": "lambda-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "clean": "cd dist && rm -rf *",
+    "build": "tsc && cp package.json dist/package.json && (cd dist && npm install --only=production) && rm -f lambda-ts.zip && zip -r lambda-ts.zip dist/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.6",
+    "jest": "^26.6.1",
+    "ts-jest": "^26.4.3"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.64",
+    "aws-sdk": "^2.783.0"
+  }
+}

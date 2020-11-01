@@ -28,9 +28,9 @@ export class UserAuthStack extends cdk.Stack {
     });
 
     const userAuthLambda = new lambda.Function(this, 'userAuthFunction', {
-      code: new lambda.AssetCode('lambda'),
-      handler: 'user_auth_handler.sign_in',
-      runtime: lambda.Runtime.PYTHON_3_7,
+      code: lambda.Code.fromAsset("lambda-ts/lambda-ts.zip"),
+      handler: 'dist/handler.signIn',
+      runtime: lambda.Runtime.NODEJS_12_X,
       environment: {
         TABLE_NAME: dynamoTable.tableName,
         PRIMARY_KEY: 'id'
